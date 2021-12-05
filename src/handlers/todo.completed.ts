@@ -26,14 +26,18 @@ const completeTodo = async (completedTodo) => {
     completedAt: completedTodo.completedAt,
   };
 
-  const { data } = await axios.post(`${config.hasura.url}/v1/graphql`, {
-    query: HASURA_OPERATION_COMPLETE_TODO,
-    variables,
-  }, {
-    headers: {
-      'x-hasura-admin-secret': config.hasura.adminSecret
+  const { data } = await axios.post(
+    `${config.hasura.url}/v1/graphql`,
+    {
+      query: HASURA_OPERATION_COMPLETE_TODO,
+      variables,
+    },
+    {
+      headers: {
+        "x-hasura-admin-secret": config.hasura.adminSecret,
+      },
     }
-  });
+  );
 
   return {
     data: (data as any).data,
