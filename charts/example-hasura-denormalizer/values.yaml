@@ -1,0 +1,42 @@
+# Default values for node projects.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  repository: draft
+  tag: dev
+  pullPolicy: IfNotPresent
+
+# define environment variables here as a map of key: value
+env:
+
+runIntegrationTests: false
+
+service:
+  name: example-hasura-denormalizer
+  internalPort: 3000
+  externalPort: 80
+
+probePath: /health
+livenessProbe:
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  failureThreshold: 1
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+
+resources:
+  limits:
+    cpu: '1'
+    memory: 256Mi
+  requests:
+    cpu: 200m
+    memory: 128Mi
+
+knativeDeploy: true
+knative:
+  minScale: 1
+  maxScale: 3

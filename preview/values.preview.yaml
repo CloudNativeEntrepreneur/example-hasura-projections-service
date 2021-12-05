@@ -1,0 +1,4 @@
+knativeDeploy: true
+
+runIntegrationTests: true
+vaultRole: jx-vault
