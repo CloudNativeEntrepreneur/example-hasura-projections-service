@@ -1,46 +1,33 @@
 import axios from "axios";
 import { config } from "../config.js";
 
-const HASURA_OPERATION_INSERT_TODO = `
-mutation InsertTodo(
-    $address: String, 
-    $createdAt: timestamp, 
-    $completed: Boolean
-    $id: uuid, 
-    $todo: String, 
+const HASURA_OPERATION_COMPLETE_TODO = `
+mutation CompleteTodo(
+    $id: uuid!,
+    $completed: Boolean!,
+    $completedAt: timestamp!, 
   ) {
-  insert_todos_one(object: {
-    address: $address, 
-    createdAt: $createdAt, 
-    completed: $completed
-    id: $id, 
-    todo: $todo, 
-  }) {
-    address
-    createdAt
-    completed
-    completedAt
-    id
+  update_todos_by_pk(pk_columns: {id: $id}, _set: {completed: $completed, completedAt: $completedAt}) {
     todo
+    id
+    createdAt
+    completedAt
+    completed
+    address
   }
 }
 `;
 
 // execute the parent operation in Hasura
-const insertTodo = async (createdTodo) => {
+const completeTodo = async (completedTodo) => {
   const variables = {
-    address: createdTodo.address,
-    createdAt: createdTodo.createdAt,
-    completed: createdTodo.completed,
-    completedAt: createdTodo.completedAt,
-    id: createdTodo.id,
-    todo: createdTodo.todo,
+    id: completedTodo.id,
+    completed: completedTodo.completed,
+    completedAt: completedTodo.completedAt,
   };
 
-  console.log('variables', variables)
-
   const { data } = await axios.post(`${config.hasura.url}/v1/graphql`, {
-    query: HASURA_OPERATION_INSERT_TODO,
+    query: HASURA_OPERATION_COMPLETE_TODO,
     variables,
   }, {
     headers: {
@@ -71,7 +58,7 @@ export const handle = async (request, response, event) => {
     response.status(200).json({ id });
   } else {
     request.log.info({ msg: `⏳ denormalizing ${type}`, data, event });
-    const hasuraResult = await insertTodo(data);
+    const hasuraResult = await completeTodo(data);
 
     if (hasuraResult.errors) {
       request.log.info({ msg: "🚨 hasura error", hasuraResult });

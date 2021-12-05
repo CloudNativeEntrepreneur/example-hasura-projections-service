@@ -35,8 +35,9 @@ describe("todo.initialized event handler", () => {
       },
     };
     const reply = {
-      code: jest.fn(() => ({
+      status: jest.fn(() => ({
         send: jest.fn(),
+        json: jest.fn(),
       })),
     };
     const event = {
@@ -57,8 +58,9 @@ describe("todo.initialized event handler", () => {
       },
     };
     const reply = {
-      code: jest.fn(() => ({
+      status: jest.fn(() => ({
         send: jest.fn(),
+        json: jest.fn(),
       })),
     };
     const event = {
@@ -80,8 +82,9 @@ describe("todo.initialized event handler", () => {
       },
     };
     const reply = {
-      code: jest.fn(() => ({
+      status: jest.fn(() => ({
         send: jest.fn(),
+        json: jest.fn(),
       })),
     };
     const event = {
