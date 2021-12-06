@@ -27,17 +27,14 @@ mutation InsertTodo(
 `;
 
 // execute the parent operation in Hasura
-const insertTodo = async (createdTodo) => {
+const insertTodo = async (todo) => {
   const variables = {
-    address: createdTodo.address,
-    createdAt: createdTodo.createdAt,
-    completed: createdTodo.completed,
-    completedAt: createdTodo.completedAt,
-    id: createdTodo.id,
-    todo: createdTodo.todo,
+    address: todo.address,
+    createdAt: new Date(todo.timestamp),
+    completed: todo.completed,
+    id: todo.id,
+    todo: todo.todo,
   };
-
-  console.log("variables", variables);
 
   const { data } = await axios.post(
     `${config.hasura.url}/v1/graphql`,

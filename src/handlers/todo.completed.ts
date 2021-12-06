@@ -19,11 +19,11 @@ mutation CompleteTodo(
 `;
 
 // execute the parent operation in Hasura
-const completeTodo = async (completedTodo) => {
+const completeTodo = async (todo) => {
   const variables = {
-    id: completedTodo.id,
-    completed: completedTodo.completed,
-    completedAt: completedTodo.completedAt,
+    id: todo.id,
+    completed: todo.completed,
+    completedAt: new Date(todo.timestamp),
   };
 
   const { data } = await axios.post(

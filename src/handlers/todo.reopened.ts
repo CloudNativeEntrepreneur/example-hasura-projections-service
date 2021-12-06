@@ -23,7 +23,7 @@ const completeTodo = async (completedTodo) => {
   const variables = {
     id: completedTodo.id,
     completed: completedTodo.completed,
-    completedAt: completedTodo.completedAt,
+    completedAt: undefined,
   };
 
   const { data } = await axios.post(
