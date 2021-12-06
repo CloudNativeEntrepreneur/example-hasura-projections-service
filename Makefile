@@ -6,7 +6,6 @@ onboard: refresh-kind-image
 
 connect-to-local-dev-cluster:
 	kubectl ctx $(LOCAL_DEV_CLUSTER)
-	kubectl port-forward --namespace default svc/sourced-mongodb 27017:27017 &
 	kubectl port-forward --namespace knative-eventing svc/broker-ingress 8080:80 &
 
 build-new-local-image:
