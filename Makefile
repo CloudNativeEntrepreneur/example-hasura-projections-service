@@ -2,7 +2,13 @@ SERVICE_NAME := example-hasura-denormalizer
 NOW := $(shell date +%m_%d_%Y_%H_%M)
 LOCAL_DEV_CLUSTER ?= kind-local-dev-cluster
 
-onboard: refresh-kind-image
+install:
+	npm run ci
+
+dev:
+	npm run dev
+
+onboard: install dev
 
 connect-to-local-dev-cluster:
 	kubectl ctx $(LOCAL_DEV_CLUSTER)
