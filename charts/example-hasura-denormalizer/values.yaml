@@ -40,3 +40,7 @@ knativeDeploy: true
 knative:
   minScale: 1
   maxScale: 3
+  eventing:
+    local:
+    subsciber:
+

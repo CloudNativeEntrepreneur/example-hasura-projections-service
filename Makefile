@@ -3,12 +3,15 @@ NOW := $(shell date +%m_%d_%Y_%H_%M)
 LOCAL_DEV_CLUSTER ?= kind-local-dev-cluster
 
 install:
-	npm run ci
+	npm ci
 
 dev:
 	npm run dev
 
-onboard: install dev
+onboard: deploy-to-local-cluster install
+
+open:
+	code .
 
 connect-to-local-dev-cluster:
 	kubectl ctx $(LOCAL_DEV_CLUSTER)
@@ -27,7 +30,7 @@ deploy-to-local-cluster:
 	kubectl ctx $(LOCAL_DEV_CLUSTER)
 	helm template ./charts/$(SERVICE_NAME)/ \
 		-f ./charts/$(SERVICE_NAME)/values.yaml \
-		--set image.repository=dev.local/$(SERVICE_NAME),image.tag=$(NOW) \
+		--set image.repository=dev.local/$(SERVICE_NAME),image.tag=$(NOW),knative.eventing.local=true,knative.eventing.subscriber=http://host.docker.internal:5010 \
 		| kubectl apply -f -
 
 delete-local-deployment:

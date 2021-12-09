@@ -1,4 +1,6 @@
-{{- if or .Values.knativeDeploy }}
+{{- if .Values.knative.eventing.local }}
+{{- else }}
+{{- if .Values.knativeDeploy }}
 {{- else }}
 apiVersion: v1
 kind: Service
@@ -23,4 +25,5 @@ spec:
     name: http
   selector:
     app: {{ .Values.service.name }}
+{{- end }}
 {{- end }}
