@@ -36,6 +36,9 @@ export const start = async (server, handlersPath: string) => {
   await registerHandlers({
     server: appRouter,
     path: handlersPath,
+    handlerOptions: {
+      sync: true,
+    },
   });
 
   logger.info(
@@ -47,6 +50,9 @@ export const start = async (server, handlersPath: string) => {
     path: handlersPath,
     cloudevents: true,
     serverPath: "/cloudevent/",
+    handlerOptions: {
+      sync: false,
+    },
   });
 
   server.use("/", appRouter);

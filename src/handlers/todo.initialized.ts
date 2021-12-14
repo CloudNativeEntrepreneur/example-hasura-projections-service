@@ -55,7 +55,8 @@ const insertTodo = async (todo) => {
   };
 };
 
-export const handle = async (request, response, event) => {
+export const handle = async (request, response, event, handlerOptions) => {
+  const { sync } = handlerOptions;
   const { data, type } = event;
   const { completedDenormalizers, id } = data;
   const hasBeenProcessed =
@@ -69,17 +70,26 @@ export const handle = async (request, response, event) => {
       msg: "🛑 this message has already been processed via the sync handler",
       id,
     });
-    response.status(200).json({ id });
+
+    if (sync) {
+      return response.status(202).json({ id });
+    } else {
+      return response.status(202).send();
+    }
   } else {
     request.log.info({ msg: `⏳ denormalizing ${type}`, data, event });
     const hasuraResult = await insertTodo(data);
 
     if (hasuraResult.errors) {
       request.log.info({ msg: "🚨 hasura error", hasuraResult });
-      response.status(400).json(hasuraResult);
+      return response.status(400).json(hasuraResult);
     } else {
       request.log.info({ msg: "✅ hasura result", hasuraResult });
-      response.status(201).json(hasuraResult);
+      if (sync) {
+        return response.status(202).json(hasuraResult);
+      } else {
+        return response.status(202).send();
+      }
     }
   }
 };
