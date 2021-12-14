@@ -1,4 +1,4 @@
-import { handle } from "../../../src/handlers/todo.initialized.js";
+import { handle } from "../../../src/handlers/todo.removed.js";
 
 jest.spyOn(process, "exit").mockImplementation(() => {
   return undefined as never;
@@ -11,7 +11,7 @@ jest.mock("axios", () => {
         new Promise((resolve, reject) => {
           resolve({
             data: {
-              insert_todos_one: {
+              delete_todos_by_pk: {
                 id: "test-1",
               },
             },
@@ -21,7 +21,7 @@ jest.mock("axios", () => {
   };
 });
 
-describe("todo.initialized event handler", () => {
+describe("todo.removed event handler", () => {
   it("should export minimum exports", () => {
     expect(handle).toBeDefined();
     expect(typeof handle === "function").toBe(true);
@@ -41,7 +41,7 @@ describe("todo.initialized event handler", () => {
       })),
     };
     const event = {
-      type: "todo.initialized",
+      type: "todo.removed",
       data: {
         id: "test-1",
       },
@@ -64,7 +64,7 @@ describe("todo.initialized event handler", () => {
       })),
     };
     const event = {
-      type: "todo.initialized",
+      type: "todo.removed",
       data: {
         id: "test-1",
       },
@@ -87,7 +87,7 @@ describe("todo.initialized event handler", () => {
       })),
     };
     const event = {
-      type: "todo.initialized",
+      type: "todo.removed",
       data: {
         id: "test-1",
         completedDenormalizers: ["example-hasura"],
@@ -111,7 +111,7 @@ describe("todo.initialized event handler", () => {
       })),
     };
     const event = {
-      type: "todo.initialized",
+      type: "todo.removed",
       data: {
         id: "test-1",
         completedDenormalizers: ["example-hasura"],
@@ -135,7 +135,7 @@ describe("todo.initialized event handler", () => {
       })),
     };
     const event = {
-      type: "todo.initialized",
+      type: "todo.removed",
       data: {
         id: "test-1",
       },

@@ -55,7 +55,12 @@ const insertTodo = async (todo) => {
   };
 };
 
-export const handle = async (request, response, event, handlerOptions) => {
+export const handle = async (
+  request,
+  response,
+  event,
+  handlerOptions = { sync: false }
+) => {
   const { sync } = handlerOptions;
   const { data, type } = event;
   const { completedDenormalizers, id } = data;
