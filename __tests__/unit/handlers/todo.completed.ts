@@ -13,7 +13,7 @@ jest.mock("axios", () => {
             data: {
               update_todos_by_pk: {
                 id: "test-1",
-                completed: true
+                completed: true,
               },
             },
           });
