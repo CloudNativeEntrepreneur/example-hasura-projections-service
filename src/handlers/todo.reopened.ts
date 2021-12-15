@@ -26,7 +26,7 @@ const completeTodo = async (completedTodo) => {
     completedAt: undefined,
   };
 
-  const { data } = await axios.post(
+  const result = await axios.post(
     `${config.hasura.url}/v1/graphql`,
     {
       query: HASURA_OPERATION_COMPLETE_TODO,
@@ -39,7 +39,10 @@ const completeTodo = async (completedTodo) => {
     }
   );
 
+  const { data, status } = result;
+
   return {
+    status,
     data: (data as any).data,
     errors: (data as any).errors,
   };
@@ -81,7 +84,7 @@ export const handle = async (
     } else {
       request.log.info({ msg: "✅ hasura result", hasuraResult });
       if (sync) {
-        return response.status(202).json(hasuraResult);
+        return response.status(hasuraResult.status).json(hasuraResult);
       } else {
         return response.status(202).send();
       }
