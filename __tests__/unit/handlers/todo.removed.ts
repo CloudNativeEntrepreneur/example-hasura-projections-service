@@ -10,6 +10,7 @@ jest.mock("axios", () => {
       () =>
         new Promise((resolve, reject) => {
           resolve({
+            status: 200,
             data: {
               delete_todos_by_pk: {
                 id: "test-1",
