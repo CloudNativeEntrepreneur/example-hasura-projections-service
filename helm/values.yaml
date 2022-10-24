@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 image:
-  repository: draft
+  repository: ghcr.io/cloudnativeentrepreneur/example-hasura-projections-service
   tag: dev
   pullPolicy: IfNotPresent
 
