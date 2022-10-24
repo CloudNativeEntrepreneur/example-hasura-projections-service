@@ -3,19 +3,15 @@
 # Declare variables to be passed into your templates.
 image:
   repository: ghcr.io/cloudnativeentrepreneur/example-hasura-projections-service
-  tag: latest
+  tag: v0.9.5
   pullPolicy: IfNotPresent
-
 # define environment variables here as a map of key: value
 env:
-
 runIntegrationTests: false
-
 service:
   name: example-hasura-denormalizer
   internalPort: 3000
   externalPort: 80
-
 probePath: /health
 livenessProbe:
   initialDelaySeconds: 5
@@ -27,7 +23,6 @@ readinessProbe:
   periodSeconds: 10
   successThreshold: 1
   timeoutSeconds: 1
-
 resources:
   limits:
     cpu: '1'
@@ -35,7 +30,6 @@ resources:
   requests:
     cpu: 200m
     memory: 128Mi
-
 knativeDeploy: true
 knative:
   minScale: 1
@@ -43,4 +37,3 @@ knative:
   eventing:
     local:
     subsciber:
-
