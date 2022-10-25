@@ -23,6 +23,7 @@ spec:
       - image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: {{ .Values.service.internalPort }}
+          protocol: TCP
         env:
         - name: HASURA_URL
           value: http://example-hasura.{{ .Release.Namespace }}.svc.cluster.local
