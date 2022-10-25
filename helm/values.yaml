@@ -12,8 +12,8 @@ env:
 runIntegrationTests: false
 
 service:
-  name: example-hasura-denormalizer
-  internalPort: 3000
+  name: example-hasura-projections-service
+  internalPort: 5010
   externalPort: 80
 
 probePath: /health

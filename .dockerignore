@@ -1,5 +1,5 @@
 draft.toml
-helm/
+charts/
 NOTICE
 LICENSE
 README.md

@@ -1,6 +1,6 @@
-SERVICE_NAME := example-hasura-denormalizer
+SERVICE_NAME := example-hasura-projections-service
 NOW := $(shell date +%m_%d_%Y_%H_%M)
-LOCAL_DEV_CLUSTER ?= kind-local-dev-cluster
+LOCAL_DEV_CLUSTER ?= rancher-desktop
 
 install:
 	npm ci
@@ -24,7 +24,7 @@ build-new-local-image:
 
 load-local-image-to-kind:
 	kubectl ctx $(LOCAL_DEV_CLUSTER)
-	kind --name local-dev-cluster load docker-image dev.local/$(SERVICE_NAME):$(NOW)
+	kind --name kind-local-dev-cluster load docker-image dev.local/$(SERVICE_NAME):$(NOW)
 
 deploy-to-local-cluster:
 	kubectl ctx $(LOCAL_DEV_CLUSTER)

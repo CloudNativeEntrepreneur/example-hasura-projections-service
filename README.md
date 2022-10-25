@@ -1,6 +1,6 @@
-# example-hasura-denormalizer
+# example-hasura-projections-service
 
-Recieves events from models and updates readmodel data accordingly
+Recieves events from models and updates readmodel data via Hasura API
 
 ## Running
 

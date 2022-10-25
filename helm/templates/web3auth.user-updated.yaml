@@ -1,0 +1,25 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: web3auth.user-updated
+spec:
+  broker: web3auth-events
+  filter:
+    attributes:
+      type: web3auth.user-updated
+  subscriber:
+{{- if .Values.knative.eventing.local }}
+    uri: {{ .Values.knative.eventing.subscriber }}/cloudevent/web3auth.user-updated
+{{- else }}
+    ref:
+{{- if .Values.knativeDeploy }}
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: {{ .Values.service.name }}
+{{- else }}
+      apiVersion: v1
+      kind: Service
+      name: {{ .Values.service.name }}
+{{- end }}
+    uri: /cloudevent/web3auth.user-updated
+{{- end }}
