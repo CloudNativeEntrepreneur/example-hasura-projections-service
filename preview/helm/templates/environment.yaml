@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .Values.repository.name }}-{{ .Values.pr }}-preview-environment
+  name: {{ .Values.repository.name }}-{{ .Values.pr }}-preview-env
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
