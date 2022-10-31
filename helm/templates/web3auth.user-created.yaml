@@ -2,6 +2,8 @@ apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
   name: web3auth.user-created
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   broker: web3auth-events
   filter:

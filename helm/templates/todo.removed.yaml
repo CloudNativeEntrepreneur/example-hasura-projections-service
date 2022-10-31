@@ -2,6 +2,8 @@ apiVersion: eventing.knative.dev/v1
 kind: Trigger
 metadata:
   name: todo.removed
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   broker: todo-events
   filter:
