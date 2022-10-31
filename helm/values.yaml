@@ -40,7 +40,6 @@ knativeDeploy: true
 knative:
   minScale: 1
   maxScale: 3
-  eventing:
-    local:
-    subsciber:
 
+local: true
+localKnativeSubscriber: http://host.docker.internal:5010

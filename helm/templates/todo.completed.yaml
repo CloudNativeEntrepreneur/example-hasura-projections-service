@@ -10,8 +10,8 @@ spec:
     attributes:
       type: todo.completed
   subscriber:
-{{- if .Values.knative.eventing.local }}
-    uri: {{ .Values.knative.eventing.subscriber }}/cloudevent/todo.completed
+{{- if .Values.local }}
+    uri: {{ .Values.localKnativeSubscriber }}/cloudevent/todo.completed
 {{- else }}
     ref:
 {{- if .Values.knativeDeploy }}

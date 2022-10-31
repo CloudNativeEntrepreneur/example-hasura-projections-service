@@ -10,8 +10,8 @@ spec:
     attributes:
       type: todo.removed
   subscriber:
-{{- if .Values.knative.eventing.local }}
-    uri: {{ .Values.knative.eventing.subscriber }}/cloudevent/todo.removed
+{{- if .Values.local }}
+    uri: {{ .Values.localKnativeSubscriber }}/cloudevent/todo.removed
 {{- else }}
     ref:
 {{- if .Values.knativeDeploy }}
