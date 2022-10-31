@@ -1,14 +1,9 @@
 {{- if .Values.knative.eventing.local }}
 {{- else }}
-{{- if .Values.knativeDeploy }}
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-{{- if .Values.service.name }}
   name: {{ .Values.service.name }}
-{{- else }}
-  name: {{ template "fullname" . }}
-{{- end }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     networking.knative.dev/visibility: cluster-local
@@ -38,5 +33,4 @@ spec:
 {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
-{{- end }}
 {{- end }}
