@@ -30,7 +30,7 @@ deploy-to-local-cluster:
 	kubectl ctx $(LOCAL_DEV_CLUSTER)
 	helm template ./charts/$(SERVICE_NAME)/ \
 		-f ./charts/$(SERVICE_NAME)/values.yaml \
-		--set image.repository=dev.local/$(SERVICE_NAME),image.tag=$(NOW),knative.eventing.local=true,knative.eventing.subscriber=http://host.docker.internal:5010 \
+		--set image.repository=dev.local/$(SERVICE_NAME),image.tag=$(NOW),knative.eventing.local=true,localKnativeSubscriber=http://host.docker.internal:5010 \
 		| kubectl apply -f -
 
 delete-local-deployment:

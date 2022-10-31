@@ -10,8 +10,8 @@ spec:
     attributes:
       type: todo.initialized
   subscriber:
-{{- if .Values.knative.eventing.local }}
-    uri: {{ .Values.knative.eventing.subscriber }}/cloudevent/todo.initialized
+{{- if .Values.local }}
+    uri: {{ .Values.localKnativeSubscriber }}/cloudevent/todo.initialized
 {{- else }}
     ref:
 {{- if .Values.knativeDeploy }}

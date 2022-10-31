@@ -10,8 +10,8 @@ spec:
     attributes:
       type: web3auth.user-updated
   subscriber:
-{{- if .Values.knative.eventing.local }}
-    uri: {{ .Values.knative.eventing.subscriber }}/cloudevent/web3auth.user-updated
+{{- if .Values.local }}
+    uri: {{ .Values.localKnativeSubscriber }}/cloudevent/web3auth.user-updated
 {{- else }}
     ref:
 {{- if .Values.knativeDeploy }}
