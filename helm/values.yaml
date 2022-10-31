@@ -36,10 +36,9 @@ resources:
     cpu: 200m
     memory: 128Mi
 
-knativeDeploy: true
 knative:
   minScale: 1
   maxScale: 3
 
-local: true
+local: false
 localKnativeSubscriber: http://host.docker.internal:5010
