@@ -26,7 +26,7 @@
     "express": "4.17.3",
     "express-pino-logger": "7.0.0",
     "pino": "7.8.0",
-    "register-server-handlers": "4.2.3"
+    "register-server-handlers": "4.2.4"
   },
   "devDependencies": {
     "@jest/globals": "27.5.1",
