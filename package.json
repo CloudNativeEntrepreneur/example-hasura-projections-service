@@ -32,7 +32,7 @@
     "@jest/globals": "27.5.1",
     "@types/debug": "4.1.7",
     "@types/jest": "27.4.1",
-    "@types/node": "17.0.21",
+    "@types/node": "18.11.9",
     "@typescript-eslint/eslint-plugin": "5.12.1",
     "@typescript-eslint/parser": "5.12.1",
     "eslint": "8.10.0",
