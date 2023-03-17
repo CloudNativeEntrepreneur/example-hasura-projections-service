@@ -1,0 +1,6 @@
+name: example-hasura-projections-service
+pr: pr-0
+headRef: HEAD
+tag: latest
+repository: CloudNativeEntrepreneur/example-hasura-projections-service
+project: dev

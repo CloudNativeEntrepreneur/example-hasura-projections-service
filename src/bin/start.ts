@@ -2,7 +2,6 @@ import path from "path";
 import express, { Router } from "express";
 import pino from "pino";
 import pinoLoggerMiddleware from "express-pino-logger";
-import bodyParser from "body-parser";
 import { registerHandlers } from "register-server-handlers";
 import { config } from "../config.js";
 import { healthcheck } from "../lib/healthcheck.js";
@@ -20,9 +19,9 @@ const appRouter = Router();
 let listeningServer;
 
 // parse application/x-www-form-urlencoded
-server.use(bodyParser.urlencoded({ extended: false }));
+server.use(express.urlencoded({ extended: false }));
 // parse application/json
-server.use(bodyParser.json());
+server.use(express.json({ limit: "50mb" }));
 
 // enable request logging
 appRouter.use(pinoLogger);
@@ -68,7 +67,9 @@ const onListen = (port) => {
 
 export const shutdown = (server) => async () => {
   logger.info("🛑 Received SIGTERM, shutting down...");
-  await server.close();
+  if (server && server.close) {
+    await server.close();
+  }
   logger.info("🛑 Server closed");
   logger.info("🛑 Exiting...");
   return process.exit(0);

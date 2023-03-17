@@ -1,0 +1,27 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: web3auth.user-created
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  broker: web3auth-events
+  filter:
+    attributes:
+      type: web3auth.user-created
+  subscriber:
+{{- if .Values.local }}
+    uri: {{ .Values.localKnativeSubscriber }}/cloudevent/web3auth.user-created
+{{- else }}
+    ref:
+{{- if .Values.knativeDeploy }}
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: {{ .Values.service.name }}
+{{- else }}
+      apiVersion: v1
+      kind: Service
+      name: {{ .Values.service.name }}
+{{- end }}
+    uri: /cloudevent/web3auth.user-created
+{{- end }}

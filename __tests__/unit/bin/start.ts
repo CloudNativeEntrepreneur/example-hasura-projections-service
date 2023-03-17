@@ -2,22 +2,29 @@ import { start, shutdown } from "../../../src/bin/start.js";
 
 jest.mock("register-server-handlers");
 
-jest.mock("express", () => ({
-  __esModule: true,
-  default: jest.fn(() => ({
+jest.mock("express", () => {
+  const m: any = {
+    __esModule: true,
+    Router: jest.fn(() => ({
+      use: jest.fn(),
+      get: jest.fn(),
+      post: jest.fn(),
+    })),
+  };
+
+  m.default = jest.fn(() => ({
     use: jest.fn(),
     get: jest.fn(),
     post: jest.fn(),
     listen: jest.fn(() => ({
       close: jest.fn(),
     })),
-  })),
-  Router: jest.fn(() => ({
-    use: jest.fn(),
-    get: jest.fn(),
-    post: jest.fn(),
-  })),
-}));
+  }));
+  m.default.urlencoded = jest.fn();
+  m.default.json = jest.fn();
+
+  return m;
+});
 
 jest.spyOn(process, "exit").mockImplementation(() => {
   return undefined as never;
