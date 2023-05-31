@@ -1,0 +1,27 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: todo.initialized
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  broker: todo-events
+  filter:
+    attributes:
+      type: todo.initialized
+  subscriber:
+{{- if .Values.local }}
+    uri: {{ .Values.localKnativeSubscriber }}/cloudevent/todo.initialized
+{{- else }}
+    ref:
+{{- if .Values.knativeDeploy }}
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: {{ .Values.service.name }}
+{{- else }}
+      apiVersion: v1
+      kind: Service
+      name: {{ .Values.service.name }}
+{{- end }}
+    uri: /cloudevent/todo.initialized
+{{- end }}

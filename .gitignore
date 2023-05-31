@@ -66,3 +66,4 @@ jest_0
 .queues
 .queues.*
 secrets
+/tmp

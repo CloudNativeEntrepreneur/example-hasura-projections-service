@@ -1,0 +1,5 @@
+name: example-hasura-projections-service
+version: HEAD
+project: dev
+repository: CloudNativeEntrepreneur/example-hasura-projections-service
+values: ""
