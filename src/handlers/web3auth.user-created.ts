@@ -5,26 +5,32 @@ import axiosRetry from "axios-retry";
 
 axiosRetry(axios, { retries: 3 });
 
-const HASURA_OPERATION_COMPLETE_TODO = `
-mutation RemoveTodo(
-    $id: uuid!
+const HASURA_OPERATION_INSERT_WEB3AUTH_USER = `
+mutation InsertWeb3AuthUser(
+    $address: String, 
+    $username: String,
   ) {
-  delete_todos_by_pk(id: $id) {
-    id
+  insert_web3auth_users_one(object: {
+    address: $address, 
+    username: $username, 
+  }) {
+    address
+    username
   }
 }
 `;
 
 // execute the parent operation in Hasura
-const removeTodo = async (removedTodo) => {
+const insertWeb3AuthUser = async (web3authUser) => {
   const variables = {
-    id: removedTodo.id,
+    address: web3authUser.address,
+    username: web3authUser.username,
   };
 
   const result = await axios.post(
     `${config.hasura.url}/v1/graphql`,
     {
-      query: HASURA_OPERATION_COMPLETE_TODO,
+      query: HASURA_OPERATION_INSERT_WEB3AUTH_USER,
       variables,
     },
     {
@@ -43,4 +49,4 @@ const removeTodo = async (removedTodo) => {
   };
 };
 
-export const handle = hasuraAndKnative(removeTodo);
+export const handle = hasuraAndKnative(insertWeb3AuthUser);
